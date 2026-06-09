@@ -11,7 +11,7 @@ export default function Admin() {
     currentPrice: '',
     originalPrice: '',
     link: '',
-    image: '',
+    images: [],
     websiteDescription: '',
     socialCaption: ''
   })
@@ -23,8 +23,8 @@ export default function Admin() {
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  const handleImageChange = (url) => {
-    setFormData(prev => ({ ...prev, image: url }))
+  const handleImageChange = (urls) => {
+    setFormData(prev => ({ ...prev, images: urls }))
   }
 
   const generateSocialCaption = () => {
@@ -63,7 +63,7 @@ export default function Admin() {
     location: formData.location || 'Destination',
     currentPrice: Number(formData.currentPrice) || 0,
     originalPrice: Number(formData.originalPrice) || null,
-    image: formData.image || 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80&w=800',
+    images: formData.images.length > 0 ? formData.images : ['https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80&w=800'],
     description: formData.websiteDescription || 'Your beautifully crafted description will appear here on the live website.'
   }
 
@@ -143,7 +143,7 @@ export default function Admin() {
             </div>
 
             {/* Image Upload */}
-            <ImageUpload image={formData.image} onImageChange={handleImageChange} />
+            <ImageUpload images={formData.images} onImageChange={handleImageChange} />
 
             {/* Descriptions */}
             <div>
@@ -233,7 +233,7 @@ export default function Admin() {
                   {/* Mock Instagram Image */}
                   <div className="aspect-square bg-slate-100 relative">
                      <img 
-                      src={formData.image || 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80&w=800'} 
+                      src={formData.images?.[0] || 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80&w=800'} 
                       alt="Post" 
                       className="w-full h-full object-cover"
                     />
